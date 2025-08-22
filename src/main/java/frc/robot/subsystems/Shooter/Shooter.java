@@ -11,7 +11,9 @@ import com.ctre.phoenix6.hardware.TalonFX;
 
 public class Shooter  extends SubsystemBase {
     private final TalonFX ShooterMotor = new TalonFX(2);
-    public final AnalogInput beamBreak = new AnalogInput(0);
+    public final AnalogInput analogBeam = new AnalogInput(0);
+    public final int beamDistance = 10; //Change this to change what distance the analog beam break detects as an object
+
     
 public Shooter(){
     setDefaultCommand(stopShooter().ignoringDisable(true));
@@ -65,13 +67,9 @@ public Shooter(){
       return runIntake().until(beamNotBroken); // Runs auto intake until the beam is not broken.
     }
 
-
-
-   
-
-
-  public BooleanSupplier beamBroken = () -> !beamBreak.equals(ShooterMotor);
-  public BooleanSupplier beamNotBroken = () -> beamBreak.equals(ShooterMotor);
+  
+  public BooleanSupplier beamBroken = () -> analogBeam.getValue() <= beamDistance;
+  public BooleanSupplier beamNotBroken = () -> analogBeam.getValue() >= beamDistance;
 
 
   /**
