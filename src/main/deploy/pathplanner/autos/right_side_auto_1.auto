@@ -13,13 +13,13 @@
         {
           "type": "named",
           "data": {
-            "name": "Elevator Level 2"
+            "name": "Elevator Level 4"
           }
         },
         {
           "type": "wait",
           "data": {
-            "waitTime": 0.1
+            "waitTime": 0.5
           }
         },
         {
@@ -38,6 +38,12 @@
           "type": "named",
           "data": {
             "name": "Stop Shooter/Eject"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
+            "pathName": "between 1.1 1.2"
           }
         },
         {
