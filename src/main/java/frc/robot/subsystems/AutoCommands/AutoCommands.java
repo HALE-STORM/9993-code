@@ -14,7 +14,10 @@ public class AutoCommands extends SubsystemBase {
     public double fourthLevel = 61.0111; //13.036621 / 13.331055
     public double elevatorBase = 0.5;
 
-    
+    public void updateDashboard() {
+        shooter.updateDashboard();
+    }
+
     public Command elevatorHeightfourth() {
         return botelevator.goToHeight(fourthLevel);
     }

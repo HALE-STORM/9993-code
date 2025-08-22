@@ -98,7 +98,6 @@ public class RobotContainer {
         joystick.L1().whileTrue(bot.runShooter());
         //joystick.R1().onTrue(bot.smartIntake());
         joystick.R1().whileTrue(bot.runIntake());
-        joystick.square().whileTrue();
         joystick.cross().onTrue(drivetrain.runOnce(() -> drivetrain.seedFieldCentric()));
         joystick.povUp().onTrue(bot.elevatorHeightfourth());
         joystick.povDown().onTrue(bot.resetElevator());

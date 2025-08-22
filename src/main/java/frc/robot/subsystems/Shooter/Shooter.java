@@ -6,6 +6,8 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 import java.util.function.BooleanSupplier;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
 import com.ctre.phoenix6.hardware.TalonFX;
 
 
@@ -67,9 +69,25 @@ public Shooter(){
       return runIntake().until(beamNotBroken); // Runs auto intake until the beam is not broken.
     }
 
+
+  public double getRawValue() {  
+    return analogBeam.getValue();
+  }
+  
+  public double getVoltage() {
+    return analogBeam.getVoltage();
+  }
+  
+
+  public void updateDashboard() {
+    SmartDashboard.putNumber("Beam Raw Value", getRawValue());
+    SmartDashboard.putNumber("Beam Voltage", getVoltage());
+    SmartDashboard.putNumber("Beam Threshold", beamDistance);
+    //SmartDashboard.putBoolean("Beam Broken", beamBroken);
+  }
   
   public BooleanSupplier beamBroken = () -> analogBeam.getValue() <= beamDistance;
-  public BooleanSupplier beamNotBroken = () -> analogBeam.getValue() >= beamDistance;
+  public BooleanSupplier beamNotBroken = () -> analogBeam.getValue() > beamDistance;
 
 
   /**
