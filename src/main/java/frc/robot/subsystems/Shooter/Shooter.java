@@ -70,6 +70,10 @@ public Shooter(){
     }
 
 
+
+
+
+    
   public double getRawValue() {  
     return analogBeam.getValue();
   }
