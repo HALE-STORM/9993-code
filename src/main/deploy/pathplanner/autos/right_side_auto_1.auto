@@ -7,6 +7,12 @@
         {
           "type": "path",
           "data": {
+            "pathName": "right test"
+          }
+        },
+        {
+          "type": "path",
+          "data": {
             "pathName": "right side 1.1"
           }
         },

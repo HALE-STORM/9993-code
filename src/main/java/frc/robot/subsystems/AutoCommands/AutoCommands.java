@@ -34,13 +34,13 @@ public class AutoCommands extends SubsystemBase {
     public Shooter shooter = new Shooter();
     public Elevator botelevator = new Elevator();
 
-    public double fourthLevel = 61.0111; //13.036621 / 13.331055
+    public double fourthLevel = 61.5; //13.036621 / 13.331055 61.01111
     public double elevatorBase = 0;
 
     public Command elevatorHeightfourth() {
         return botelevator.goToHeight(fourthLevel);
     }
-/*
+
     public Command smartShooter() {
         return shooter.smartShooter();
     }
@@ -52,7 +52,7 @@ public class AutoCommands extends SubsystemBase {
     public Command autoIntake() {
         return shooter.autoIntake();
     }
-*/
+
     public Command resetElevator() {
         return botelevator.goToHeight(elevatorBase);
     }
@@ -72,4 +72,8 @@ public class AutoCommands extends SubsystemBase {
     public Command runIntake() {
         return shooter.runIntake();
     }
+
+  /*  public void updateDashboard(){
+        shooter.updateDashboard();
+    } */
 }

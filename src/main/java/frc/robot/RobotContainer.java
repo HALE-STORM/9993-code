@@ -13,10 +13,12 @@ import com.pathplanner.lib.commands.PathPlannerAuto;
 import com.ctre.phoenix6.swerve.SwerveRequest;
 
 import edu.wpi.first.math.geometry.Rotation2d;
+import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Commands;
 //import edu.wpi.first.wpilibj2.command.button.CommandPS5Controller;
 import edu.wpi.first.wpilibj2.command.button.CommandPS4Controller;
+import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.RobotModeTriggers;
 import edu.wpi.first.wpilibj2.command.sysid.SysIdRoutine.Direction;
 
@@ -29,7 +31,7 @@ public class RobotContainer {
 
     public AutoCommands bot = new AutoCommands();
 
-    private double MaxSpeed = 7;//TunerConstants.kSpeedAt12Volts.in(MetersPerSecond); // kSpeedAt12Volts desired top speed
+    private double MaxSpeed = 4;//TunerConstants.kSpeedAt12Volts.in(MetersPerSecond); // kSpeedAt12Volts desired top speed
     private double MaxAngularRate = RotationsPerSecond.of(0.75).in(RadiansPerSecond); // 3/4 of a rotation per second max angular velocity
 
     /* Setting up bindings for necessary control of the swerve drive platform */
@@ -41,7 +43,7 @@ public class RobotContainer {
 
     private final Telemetry logger = new Telemetry(MaxSpeed);
 
-    private final CommandPS4Controller joystick = new CommandPS4Controller(0);
+    private final CommandXboxController joystick = new CommandXboxController(0);
     private final CommandPS4Controller operator = new CommandPS4Controller(1);
 
     public final CommandSwerveDrivetrain drivetrain = TunerConstants.createDrivetrain();
@@ -50,8 +52,8 @@ public class RobotContainer {
         NamedCommands.registerCommand("Run Shooter", bot.runShooter());
         NamedCommands.registerCommand("Stop Shooter/Eject",bot.stopShooter());
         NamedCommands.registerCommand("Run Eject", bot.ejectShooter());
-       // NamedCommands.registerCommand("Smart Shooter", bot.smartShooter());
-        //NamedCommands.registerCommand("Smart Intake",bot.smartIntake());
+        NamedCommands.registerCommand("Smart Shooter", bot.smartShooter());
+        NamedCommands.registerCommand("Smart Intake",bot.smartIntake());
         NamedCommands.registerCommand("Elevator Level 4", bot.elevatorHeightfourth());
         NamedCommands.registerCommand("Elevator Base", bot.resetElevator());
 
@@ -78,16 +80,16 @@ public class RobotContainer {
         );
 
         //joystick.a().whileTrue(drivetrain.applyRequest(() -> brake));
-        joystick.triangle().whileTrue(drivetrain.applyRequest(() ->
+        joystick.y().whileTrue(drivetrain.applyRequest(() ->
             point.withModuleDirection(new Rotation2d(-joystick.getLeftY(), -joystick.getLeftX()))
         ));
 
         // Run SysId routines when holding back/start and X/Y.
         // Note that each routine should be run exactly once in a single log.
-        joystick.share().and(joystick.triangle()).whileTrue(drivetrain.sysIdDynamic(Direction.kForward));
-        joystick.share().and(joystick.square()).whileTrue(drivetrain.sysIdDynamic(Direction.kReverse));
-        joystick.options().and(joystick.triangle()).whileTrue(drivetrain.sysIdQuasistatic(Direction.kForward));
-        joystick.options().and(joystick.square()).whileTrue(drivetrain.sysIdQuasistatic(Direction.kReverse));
+        joystick.back().and(joystick.y()).whileTrue(drivetrain.sysIdDynamic(Direction.kForward));
+        joystick.back().and(joystick.x()).whileTrue(drivetrain.sysIdDynamic(Direction.kReverse));
+        joystick.start().and(joystick.y()).whileTrue(drivetrain.sysIdQuasistatic(Direction.kForward));
+        joystick.start().and(joystick.x()).whileTrue(drivetrain.sysIdQuasistatic(Direction.kReverse));
 
         // reset the field-centric heading on left bumper press
         operator.square().onTrue(drivetrain.runOnce(() -> drivetrain.seedFieldCentric()));
@@ -101,23 +103,22 @@ public class RobotContainer {
         
         
         
-        
         ());
         operator.triangle().whileTrue(bot.ejectShooter());
         //below is for driver
-        joystick.L1().whileTrue(bot.runShooter());
-        //joystick.R1().onTrue(bot.smartIntake());
-        joystick.R1().whileTrue(bot.runIntake());
-        joystick.cross().onTrue(drivetrain.runOnce(() -> drivetrain.seedFieldCentric()));
+        //joystick.leftBumper().whileTrue(bot.runShooter());
+        joystick.leftBumper().onTrue(bot.smartIntake());
+        joystick.rightBumper().whileTrue(bot.runShooter());
+        joystick.a().onTrue(drivetrain.runOnce(() -> drivetrain.seedFieldCentric()));
         joystick.povUp().onTrue(bot.elevatorHeightfourth());
         joystick.povDown().onTrue(bot.resetElevator());
-        joystick.circle().whileTrue(bot.ejectShooter());
+        joystick.b().whileTrue(bot.ejectShooter());
 
 
         drivetrain.registerTelemetry(logger::telemeterize);
     }
 
     public Command getAutonomousCommand() {
-        return new PathPlannerAuto("right_side_auto_1");
+        return new PathPlannerAuto("New Auto");
     }
 }

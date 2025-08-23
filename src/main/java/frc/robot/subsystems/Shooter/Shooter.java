@@ -13,18 +13,18 @@ import com.ctre.phoenix6.hardware.TalonFX;
 
 public class Shooter  extends SubsystemBase {
     private final TalonFX ShooterMotor = new TalonFX(2);
-    //public final DigitalInput beamBreak = new DigitalInput(0);//analog input for beambrake
+    public final DigitalInput beamBreak = new DigitalInput(0);//analog input for beambrake
     public final int beamDistance = 10; //Change this to change what distance the analog beam break detects as an object
 
     
 public Shooter(){
     setDefaultCommand(stopShooter().ignoringDisable(true));
-}
+} 
 
    
     public Command runShooter() {
       return Commands.run(
-          () -> ShooterMotor.setVoltage(4),
+          () -> ShooterMotor.setVoltage(1.5),//4
   
           this
       );
@@ -52,14 +52,14 @@ public Shooter(){
       );
     }
 
-    /*public Command autoIntake() {
+    public Command autoIntake() {
       return runIntake().until(beamBroken)
       //.andThen(runEjectShooter().until(beamNotBroken))
       .andThen(stopShooter());
     }
     
     public Command smartIntake(){
-      return runIntake().until(beamBroken)
+      return runIntake().until(beamNotBroken)
       //.andThen(runEjectShooter().until(beamNotBroken))
       .andThen(stopShooter());
     
@@ -70,13 +70,15 @@ public Shooter(){
     }
 
 
-
+     public void updateDashboard() {
+      //SmartDashboard.putBoolean("Beam Broken", !beamBreak.get());
+    }
   
   public BooleanSupplier beamBroken = () -> !beamBreak.get();
 
   public BooleanSupplier beamNotBroken = () -> beamBreak.get();
 
-*/
+
   /**
    * An example method querying a boolean state of the subsystem (for example, a digital sensor).
    *
@@ -89,6 +91,7 @@ public Shooter(){
 
   @Override
   public void periodic() {
+    SmartDashboard.putBoolean("Beam Broken", beamBroken.getAsBoolean());
     // This method will be called once per scheduler run
   }
 
@@ -96,6 +99,7 @@ public Shooter(){
   public void simulationPeriodic() {
     // This method will be called once per scheduler run during simulation
   }
+  
 }
 
 

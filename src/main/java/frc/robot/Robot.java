@@ -10,7 +10,7 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.subsystems.AutoCommands.AutoCommands;
 
 public class Robot extends TimedRobot {
-  AutoCommands dashboard = new AutoCommands();
+  //AutoCommands dashboard = new AutoCommands();
   private Command m_autonomousCommand;
 
   private final RobotContainer m_robotContainer;
@@ -68,6 +68,7 @@ public class Robot extends TimedRobot {
 
   @Override
   public void testPeriodic() {
+    //dashboard.updateDashboard();
   }
 
   @Override
