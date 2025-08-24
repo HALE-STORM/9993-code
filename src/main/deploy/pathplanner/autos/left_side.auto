@@ -7,7 +7,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "right side 1.1"
+            "pathName": "left side 1.1"
           }
         },
         {
@@ -70,7 +70,7 @@
         {
           "type": "path",
           "data": {
-            "pathName": "right between 1.1 1.2"
+            "pathName": "left between 1.1 1.2"
           }
         },
         {
@@ -87,50 +87,6 @@
                 "type": "wait",
                 "data": {
                   "waitTime": 2.75
-                }
-              }
-            ]
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "right side 1.2"
-          }
-        },
-        {
-          "type": "race",
-          "data": {
-            "commands": [
-              {
-                "type": "named",
-                "data": {
-                  "name": "Smart Intake"
-                }
-              },
-              {
-                "type": "wait",
-                "data": {
-                  "waitTime": 2.0
-                }
-              }
-            ]
-          }
-        },
-        {
-          "type": "race",
-          "data": {
-            "commands": [
-              {
-                "type": "named",
-                "data": {
-                  "name": "Stop Shooter/Eject"
-                }
-              },
-              {
-                "type": "wait",
-                "data": {
-                  "waitTime": 0.2
                 }
               }
             ]
