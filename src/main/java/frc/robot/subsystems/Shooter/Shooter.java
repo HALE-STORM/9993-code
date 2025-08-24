@@ -12,7 +12,7 @@ import com.ctre.phoenix6.hardware.TalonFX;
 
 
 public class Shooter  extends SubsystemBase {
-    private final TalonFX ShooterMotor = new TalonFX(2);
+    private final TalonFX ShooterMotor = new TalonFX(10);
     public final DigitalInput beamBreak = new DigitalInput(0);//analog input for beambrake
     public final int beamDistance = 10; //Change this to change what distance the analog beam break detects as an object
 
