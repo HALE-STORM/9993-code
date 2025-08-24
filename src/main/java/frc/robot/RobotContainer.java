@@ -44,7 +44,7 @@ public class RobotContainer {
     private final Telemetry logger = new Telemetry(MaxSpeed);
 
     private final CommandXboxController joystick = new CommandXboxController(0);
-    private final CommandPS4Controller operator = new CommandPS4Controller(1);
+    //private final CommandPS4Controller operator = new CommandPS4Controller(1);
 
     public final CommandSwerveDrivetrain drivetrain = TunerConstants.createDrivetrain();
 
@@ -92,19 +92,11 @@ public class RobotContainer {
         joystick.start().and(joystick.x()).whileTrue(drivetrain.sysIdQuasistatic(Direction.kReverse));
 
         // reset the field-centric heading on left bumper press
-        operator.square().onTrue(drivetrain.runOnce(() -> drivetrain.seedFieldCentric()));
+        //operator.square().onTrue(drivetrain.runOnce(() -> drivetrain.seedFieldCentric()));
         //this is for the co-driver
-        operator.povRight().onTrue(bot.elevatorHeightfourth());
-        operator.povDown().onTrue(bot.resetElevator      
-        
-        
-        
-        
-        
-        
-        
-        ());
-        operator.triangle().whileTrue(bot.ejectShooter());
+        //operator.povRight().onTrue(bot.elevatorHeightfourth());
+        //operator.povDown().onTrue(bot.resetElevator());
+        //operator.triangle().whileTrue(bot.ejectShooter());
         //below is for driver
         //joystick.leftBumper().whileTrue(bot.runShooter());
         joystick.leftBumper().onTrue(bot.smartIntake());
