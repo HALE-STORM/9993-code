@@ -119,6 +119,10 @@ public class RobotContainer {
     }
 
     public Command getAutonomousCommand() {
-        return new PathPlannerAuto("right_side_auto_1");
+        return new PathPlannerAuto("right_side");
+        /* Autonomus New Names:
+         * right_side
+         * left_side
+         */
     }
 }
